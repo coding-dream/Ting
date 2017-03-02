@@ -4,19 +4,78 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    signingConfigs {
+        debug {
+            storeFile file("../syntc-debug.jks")
+            storePassword 'syntcstudio'
+            keyAlias 'ruulaitv'
+            keyPassword 'ruulaitv'
+        }
+        release {
+            storeFile file("../syntc-debug.jks")
+            storePassword 'syntcstudio'
+            keyAlias 'ruulaitv'
+            keyPassword 'ruulaitv'
+        }
+    }
+
+
     defaultConfig {
         applicationId "com.syntc.bad"
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            manifestPlaceholders = [UMENG_KEY_VALUE: "58b82ab299f0c706610005b3"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [UMENG_KEY_VALUE: "58b82ab299f0c706610005b3"]
+        }
     }
+
+    productFlavors {
+        dev{
+            applicationId "com.syntc.bad.dev"
+        }
+        xiaomi{
+            //proguardFile 'src/xiaomi/proguard-rules.pro'
+        }
+        _360{
+            //proguardFile 'src/_360/proguard-rules.pro'
+        }
+        baidu{
+
+        }
+        qq {
+
+        }
+
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def flavor_app = "Bad";
+            def flavor_channel = variant.productFlavors.get(0);
+            def finalName = flavor_app + "_" + flavor_channel.name + "_" + variant.versionCode  /*+ "_" + flavor_abi.name*/ + ".apk";
+            output.outputFile = new File(output.outputFile.parent, finalName)
+        }
+    }
+
+
+
 }
 
 dependencies {

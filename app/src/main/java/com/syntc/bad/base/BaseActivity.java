@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 
 import com.syntc.bad.AppManager;
 
-/**
- * Created by Administrator on 2017/3/1.
- */
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected LayoutInflater mInflater;
-    private boolean visible;
+    protected boolean visible;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         initView();
         initData();
-
 
     }
 

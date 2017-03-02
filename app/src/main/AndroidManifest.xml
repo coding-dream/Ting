@@ -28,4 +28,14 @@
             android:exported="true"></service>
     </application>
 
+
+
+    <meta-data
+        android:name="UMENG_APPKEY"
+        android:value="${UMENG_KEY_VALUE}" />
+    <meta-data
+        android:name="UMENG_CHANNEL"
+        android:value="${UMENG_CHANNEL_VALUE}" />
+
+
 </manifest>

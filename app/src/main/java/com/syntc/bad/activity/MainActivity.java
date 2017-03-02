@@ -26,14 +26,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_submit:
 
-                break;
-            case R.id.btn_set_repository:
-
-            default:
-                break;
-        }
     }
 }
