@@ -78,12 +78,62 @@ android {
 
 }
 
+configurations {
+    baseDepend
+    allDepend
+
+    devDebugCompile
+    devReleaseCompile
+
+    xiaomiDebugCompile
+    xiaomiReleaseCompile
+
+    _360DebugCompile
+    _360ReleaseCompile
+
+    baiduDebugCompile
+    baiduReleaseCompile
+
+    qqDebugCompile
+    qqReleaseCompile
+}
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-//    compile 'com.squareup.okhttp3:okhttp:3.3.1'
-//    compile 'com.zhy:okhttputils:2.6.2'
+
+    baseDepend 'com.umeng.analytics:analytics:latest.integration'
+    baseDepend 'com.squareup.okhttp3:okhttp:3.3.1'
+    baseDepend 'com.zhy:okhttputils:2.6.2'
+
+    allDepend fileTree(include: ['*.jar'], dir: 'libs')
+    allDepend  configurations.baseDepend
+
+    devDebugCompile configurations.allDepend
+    devDebugCompile project(path: ':sdk_security', configuration: 'debug')
+    devReleaseCompile configurations.allDepend
+    devReleaseCompile project(path: ':sdk_security', configuration: 'release')
+
+    xiaomiDebugCompile configurations.allDepend
+    xiaomiDebugCompile project(path: ':sdk_security', configuration: 'debug')
+    xiaomiReleaseCompile configurations.allDepend
+    xiaomiReleaseCompile project(path: ':sdk_security', configuration: 'release')
+
+    _360DebugCompile configurations.allDepend
+    _360DebugCompile project(path: ':sdk_security', configuration: 'debug')
+    _360ReleaseCompile configurations.allDepend
+    _360ReleaseCompile project(path: ':sdk_security', configuration: 'release')
+
+    baiduDebugCompile configurations.allDepend
+    baiduDebugCompile project(path: ':sdk_security', configuration: 'debug')
+    baiduReleaseCompile configurations.allDepend
+    baiduReleaseCompile project(path: ':sdk_security', configuration: 'release')
+
+    qqDebugCompile configurations.allDepend
+    qqDebugCompile project(path: ':sdk_security', configuration: 'debug')
+    qqReleaseCompile configurations.allDepend
+    qqReleaseCompile project(path: ':sdk_security', configuration: 'release')
+
 
 }
 

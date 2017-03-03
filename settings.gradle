@@ -1,1 +1,7 @@
 include ':app'
+
+include 'sdk_core'
+project(':sdk_core').projectDir = new File('./Core/music_core')
+
+include 'sdk_security'
+project(':sdk_security').projectDir = new File('./Core/security')
