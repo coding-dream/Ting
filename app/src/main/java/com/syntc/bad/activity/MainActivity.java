@@ -5,7 +5,7 @@ import android.view.View;
 import com.syntc.bad.R;
 import com.syntc.bad.base.BaseActivity;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
@@ -24,8 +24,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }
