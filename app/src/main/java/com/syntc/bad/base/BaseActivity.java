@@ -11,7 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected LayoutInflater mInflater;
-    protected boolean visible;
+    public boolean visible;
     protected String pageName = getClass().getSimpleName();
 
     @Override
