@@ -129,6 +129,7 @@ dependencies {
     baseDepend 'com.umeng.analytics:analytics:latest.integration'//友盟统计
     baseDepend 'cn.jiguang.sdk:jpush:3.0.0'//极光推送
     baseDepend 'cn.jiguang.sdk:jcore:1.0.0'//极光推送
+    baseDepend 'com.readystatesoftware.systembartint:systembartint:1.0.3'    // SystemBarTint
     baseDepend 'com.squareup.okhttp3:okhttp:3.3.1'
     baseDepend 'com.zhy:okhttputils:2.6.2'
 
