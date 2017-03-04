@@ -29,12 +29,16 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
             signingConfig signingConfigs.debug
             minifyEnabled false
             manifestPlaceholders = [UMENG_KEY_VALUE: "58b82ab299f0c706610005b3"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

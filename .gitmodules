@@ -1,3 +1,6 @@
 [submodule "Core"]
 	path = Core
 	url = https://git.coding.net/ouo/Core.git
+[submodule "OpenCore"]
+	path = OpenCore
+	url = https://github.com/wangli0/Core.git

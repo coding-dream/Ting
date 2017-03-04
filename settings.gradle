@@ -1,7 +1,13 @@
 include ':app'
 
+// -------private
 include 'sdk_core'
 project(':sdk_core').projectDir = new File('./Core/music_core')
 
 include 'sdk_security'
 project(':sdk_security').projectDir = new File('./Core/security')
+
+// ------public
+include 'OpenCore_update'
+project(':OpenCore_update').projectDir = new File('./OpenCore/auto_update')
+
