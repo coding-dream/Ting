@@ -1,5 +1,6 @@
 package com.syntc.bad.base;
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,19 +8,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.syntc.bad.AppManager;
 import com.syntc.bad.R;
+import com.syntc.bad.dialog.DialogControl;
+import com.syntc.bad.dialog.DialogHelp;
 import com.umeng.analytics.MobclickAgent;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements DialogControl{
 
     protected LayoutInflater mInflater;
-    public boolean visible;
+    public boolean _isVisible ;
     protected String pageName = getClass().getSimpleName();
+    private ProgressDialog _waitDialog;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +82,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         initToolBar(toolbar, homeAsUpEnabled, getString(resTitle));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //令子Activity initToolbar()之后，点击左上方按钮有效返回
+                onBackPressed();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 
     //设置状态栏为透明的
@@ -103,9 +123,47 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     @Override
+    public ProgressDialog showWaitDialog() {
+        return showWaitDialog(R.string.loading);
+    }
+
+    @Override
+    public ProgressDialog showWaitDialog(int resid) {
+        return showWaitDialog(getString(resid));
+    }
+
+    @Override
+    public ProgressDialog showWaitDialog(String message) {
+        if (_isVisible) {
+            if (_waitDialog == null) {
+                _waitDialog = DialogHelp.getWaitDialog(this, message);
+            }
+            if (_waitDialog != null) {
+                _waitDialog.setMessage(message);
+                _waitDialog.show();
+            }
+            return _waitDialog;
+        }
+        return null;
+    }
+
+    @Override
+    public void hideWaitDialog() {
+        if (_isVisible && _waitDialog != null) {
+            try {
+                _waitDialog.dismiss();
+                _waitDialog = null;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
-        visible = true;
+        _isVisible = true;
         MobclickAgent.onPageStart(pageName); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
         MobclickAgent.onResume(this);          //统计时长
 
@@ -114,7 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        visible = false;
+        _isVisible = false;
 
         MobclickAgent.onPageEnd(pageName); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
         MobclickAgent.onPause(this);

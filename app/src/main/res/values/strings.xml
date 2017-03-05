@@ -7,6 +7,11 @@
     <string name="exit">退出</string>
     <string name="wechat">我的公众号：xxx</string>
 
+    <string name="loading">加载中…</string>
+    <string name="loading_no_more">已加载全部</string>
+
+
+
 
 
 
