@@ -189,6 +189,7 @@
 
         <!-- todo 自己定义end -->
         <activity android:name=".activity.JpushNotifyAcitivity"></activity>
+        <activity android:name=".activity.AboutActivity"/>
     </application>
 
 </manifest>

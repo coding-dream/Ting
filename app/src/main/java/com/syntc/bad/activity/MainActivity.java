@@ -1,5 +1,6 @@
 package com.syntc.bad.activity;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.syntc.bad.R;
@@ -24,6 +25,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    public void handleEvent(View view) {
+        Intent intent = new Intent();
+        intent.setClass(this, AboutActivity.class);
+        startActivity(intent);
 
-
+    }
 }

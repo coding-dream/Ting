@@ -3,8 +3,9 @@ package com.syntc.bad.base;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
@@ -46,9 +47,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void initSystemBarTint() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true); //设置状态栏为透明的
-            setStatusBarTintColor(getColorPrimary());  //设置状态栏颜色
+            setStatusBarTintColor(R.color.colorPrimary);  //设置状态栏颜色
         }
     }
+
+    /**
+     *
+     * @param toolbar
+     * @param homeAsUpEnabled 同下
+     * @param title 标题字符串
+     */
+    public void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, String title) {
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(homeAsUpEnabled);
+        }
+    }
+
+    /**
+     * 子类不需要重写，直接调用
+     * @param toolbar
+     * @param homeAsUpEnabled 给Toolbar加上一个返回的按钮，true 有小箭头，并且图标可以点击  false 没有小箭头，并且图标不可以点击
+     * @param resTitle  string.xml 资源id
+     */
+    public void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, int resTitle) {
+        initToolBar(toolbar, homeAsUpEnabled, getString(resTitle));
+    }
+
+
 
     //设置状态栏为透明的
     private void setTranslucentStatus(boolean on) {
@@ -71,13 +99,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setStatusBarTintColor(getResources().getColor(resId));
         }
-    }
-
-
-    public int getColorPrimary() {
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        return typedValue.data;
     }
 
 
