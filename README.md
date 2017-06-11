@@ -1,1 +1,2 @@
-# Bad
+# Ting
+Ting me
